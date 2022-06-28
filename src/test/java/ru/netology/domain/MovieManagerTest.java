@@ -191,4 +191,19 @@ public class MovieManagerTest {
 
         assertArrayEquals(expected, actual);
     }
+
+    @Test
+    public void shouldFindLastMoviesIfLimitMoreMovies() {
+        MovieManager movies = new MovieManager(7);
+        movies.add(movie1);
+        movies.add(movie2);
+        movies.add(movie3);
+
+
+        MovieManager[] actual = movies.findLast();
+        MovieManager[] expected = {movie3, movie2, movie1};
+
+        assertArrayEquals(expected, actual);
+    }
+
 }
