@@ -1,7 +1,6 @@
 package ru.netology.repository;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.Poster;
 
