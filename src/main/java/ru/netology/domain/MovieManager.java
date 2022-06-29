@@ -15,6 +15,7 @@ public class MovieManager {
 
     public MovieManager(int limit) {
         this.limit = limit;
+        this.movies=movies;
     }
 
     public MovieManager() {
@@ -30,29 +31,20 @@ public class MovieManager {
         movies = tmp;
     }
 
-
     public MovieManager[] findAll() {
         return movies;
     }
 
     public MovieManager[] findLast() {
         if (limit >= 0) {
-            if (movies.length >= limit) {
-                MovieManager[] reverse = new MovieManager[limit];
-                for (int i = 0; i < limit; i++) {
-                    reverse[i] = movies[movies.length - 1 - i];
-                }
-                return reverse;
-            } else {
-                MovieManager[] reverse2 = new MovieManager[movies.length];
-                for (int i = 0; i < movies.length; i++) {
-                    reverse2[i] = movies[movies.length - 1 - i];
-                }
-                return reverse2;
+            int limitResult = Math.min(movies.length, limit);
+            MovieManager[] reverse = new MovieManager[limitResult];
+            for (int i = 0; i < limitResult; i++) {
+                reverse[i] = movies[movies.length - 1 - i];
             }
+            return reverse;
         } else {
-            MovieManager[] limitNull = new MovieManager[0];
-            return limitNull;
+            return new MovieManager[0];
         }
     }
 
@@ -60,16 +52,7 @@ public class MovieManager {
         return id;
     }
 
-    public String getTitle() {
-        return title;
+    public MovieManager[] getMovies() {
+        return movies;
     }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public int getLimit() {
-        return limit;
-    }
-
 }
