@@ -1,194 +1,129 @@
 package ru.netology.domain;
 
-import org.junit.jupiter.api.BeforeEach;
+import static org.mockito.Mockito.*;
+
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import ru.netology.repository.Repository;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class MovieManagerTest {
 
-    MovieManager movie1 = new MovieManager(31, "First", "Action");
-    MovieManager movie2 = new MovieManager(32, "Second", "Adventure");
-    MovieManager movie3 = new MovieManager(33, "Third", "Drama");
-    MovieManager movie4 = new MovieManager(34, "Fourth", "Comedy");
-    MovieManager movie5 = new MovieManager(35, "Fifth", "Tragedy");
-    MovieManager movie6 = new MovieManager(36, "Sixth", "Children");
-    MovieManager movie7 = new MovieManager(37, "Seventh", "Thriller");
-    MovieManager movie8 = new MovieManager(38, "Eighth", "Adventure");
-    MovieManager movie9 = new MovieManager(39, "Ninth", "Comedy");
-    MovieManager movie10 = new MovieManager(40, "Tenth", "Drama");
-    MovieManager movie11 = new MovieManager(41, "Eleventh", "Action");
-    MovieManager movie12 = new MovieManager(42, "Twelfth", "Fantasy");
-    MovieManager movie13 = new MovieManager(43, "Thirteenth", "Horror");
-    MovieManager movie14 = new MovieManager(44, "Fourteenth", "Mystic");
-    MovieManager movie15 = new MovieManager(45, "Fifteenth", "Western");
-    MovieManager movie16 = new MovieManager(46, "Sixteenth", "Adventure");
-    MovieManager movie17 = new MovieManager(47, "Seventeenth", "Music");
-    MovieManager movie18 = new MovieManager(48, "Eighteenth", "Children");
-    MovieManager movie19 = new MovieManager(49, "Nineteenth", "Melodrama");
-    MovieManager movie20 = new MovieManager(50, "Twentieth", "Comedy");
+//    Repository repo = new Repository();   <- для тестирования без Mockito
+    Repository repo = Mockito.mock(Repository.class);
+    MovieManager manager = new MovieManager(repo);
 
-    @Test
-    public void shouldAddMovies() {
-        MovieManager manager = new MovieManager();
+    Poster movie1 = new Poster(31, "First", "Action");
+    Poster movie2 = new Poster(32, "Second", "Adventure");
+    Poster movie3 = new Poster(33, "Third", "Drama");
+    Poster movie4 = new Poster(34, "Fourth", "Comedy");
+    Poster movie5 = new Poster(35, "Fifth", "Tragedy");
+    Poster movie6 = new Poster(36, "Sixth", "Children");
+    Poster movie7 = new Poster(37, "Seventh", "Thriller");
+    Poster movie8 = new Poster(38, "Eighth", "Adventure");
+    Poster movie9 = new Poster(39, "Ninth", "Comedy");
+    Poster movie10 = new Poster(40, "Tenth", "Drama");
+    Poster movie11 = new Poster(41, "Eleventh", "Action");
+    Poster movie12 = new Poster(42, "Twelfth", "Fantasy");
+    Poster movie13 = new Poster(43, "Thirteenth", "Horror");
+    Poster movie14 = new Poster(44, "Fourteenth", "Mystic");
+    Poster movie15 = new Poster(45, "Fifteenth", "Western");
+    Poster movie16 = new Poster(46, "Sixteenth", "Adventure");
+    Poster movie17 = new Poster(47, "Seventeenth", "Music");
+    Poster movie18 = new Poster(48, "Eighteenth", "Children");
+    Poster movie19 = new Poster(49, "Nineteenth", "Melodrama");
+    Poster movie20 = new Poster(50, "Twentieth", "Comedy");
+
+    public void prepare() {
         manager.add(movie1);
         manager.add(movie2);
         manager.add(movie3);
+        manager.add(movie4);
+        manager.add(movie5);
+        manager.add(movie6);
+        manager.add(movie7);
+        manager.add(movie8);
+        manager.add(movie9);
+        manager.add(movie10);
+        manager.add(movie11);
+        manager.add(movie12);
+        manager.add(movie13);
+        manager.add(movie14);
+        manager.add(movie15);
+        manager.add(movie16);
+        manager.add(movie17);
+        manager.add(movie18);
+        manager.add(movie19);
         manager.add(movie20);
-        MovieManager[] expected = {movie1, movie2, movie3, movie20};
-        MovieManager[] actual = manager.findAll();
+    }
+
+    @Test
+    public void shouldAddMovie() {
+        Poster[] movies = {movie1, movie2, movie3, movie14};
+        doReturn(movies).when(repo).findAll();
+
+        Poster[] expected = {movie1, movie2, movie3, movie14};
+        Poster[] actual = manager.findAll();
         assertArrayEquals(expected, actual);
     }
 
     @Test
     public void shouldNoMoviesAdd() {
-        MovieManager manager = new MovieManager();
-        MovieManager[] expected = new MovieManager[0];
-        MovieManager[] actual = manager.findAll();
+        Poster[] movies = {};
+        doReturn(movies).when(repo).findAll();
+        Poster[] expected = new Poster[0];
+        Poster[] actual = manager.findAll();
         assertArrayEquals(expected, actual);
     }
 
-//    @BeforeEach
-//    public void prepare() {
-//        MovieManager movies = new MovieManager();
-//        movies.add(movie1);
-//        movies.add(movie2);
-//        movies.add(movie3);
-//        movies.add(movie4);
-//        movies.add(movie5);
-//        movies.add(movie6);
-//        movies.add(movie7);
-//        movies.add(movie8);
-//        movies.add(movie9);
-//        movies.add(movie10);
-//        movies.add(movie11);
-//        movies.add(movie12);
-//        movies.add(movie13);
-//        movies.add(movie14);
-//        movies.add(movie15);
-//        movies.add(movie16);
-//        movies.add(movie17);
-//        movies.add(movie18);
-//        movies.add(movie19);
-//        movies.add(movie20);
-//    }
 
     @Test
     public void shouldFindLastMoviesAsDefault() {
-        MovieManager movies = new MovieManager();
-        movies.add(movie1);
-        movies.add(movie2);
-        movies.add(movie3);
-        movies.add(movie4);
-        movies.add(movie5);
-        movies.add(movie6);
-        movies.add(movie7);
-        movies.add(movie8);
-        movies.add(movie9);
-        movies.add(movie10);
-        movies.add(movie11);
-        movies.add(movie12);
-        movies.add(movie13);
-        movies.add(movie14);
-        movies.add(movie15);
-        movies.add(movie16);
-        movies.add(movie17);
-        movies.add(movie18);
-        movies.add(movie19);
-        movies.add(movie20);
-
-        MovieManager[] actual = movies.findLast();
-        MovieManager[] expected = {movie20, movie19, movie18, movie17, movie16, movie15, movie14, movie13, movie12, movie11};
+//        prepare();     <- для тестирования без заглушки Mockito
+        Poster[] movies = {movie1, movie2, movie3, movie4, movie5, movie6, movie7, movie8, movie9, movie10,
+                movie11, movie12, movie13, movie14, movie15, movie16, movie17, movie18, movie19, movie20};
+        doReturn(movies).when(repo).findAll();
+        Poster[] actual = manager.findLast();
+        Poster[] expected = {movie20, movie19, movie18, movie17, movie16, movie15, movie14, movie13, movie12, movie11};
         assertArrayEquals(expected, actual);
     }
 
     @Test
     public void shouldFindLastMoviesWithLimitUnderDefault() {
-        MovieManager movies = new MovieManager(5);
-        movies.add(movie1);
-        movies.add(movie2);
-        movies.add(movie3);
-        movies.add(movie4);
-        movies.add(movie5);
-        movies.add(movie6);
-        movies.add(movie7);
-        movies.add(movie8);
-        movies.add(movie9);
-        movies.add(movie10);
-        movies.add(movie11);
-        movies.add(movie12);
-        movies.add(movie13);
-        movies.add(movie14);
-        movies.add(movie15);
-        movies.add(movie16);
-        movies.add(movie17);
-        movies.add(movie18);
-        movies.add(movie19);
-        movies.add(movie20);
+//        prepare();     <- для тестирования без заглушки Mockito
+        MovieManager manager = new MovieManager(repo, 5);
+        Poster[] movies = {movie1, movie2, movie3, movie4, movie5, movie6, movie7, movie8, movie9, movie10, movie11, movie12, movie13, movie14, movie15, movie16, movie17, movie18, movie19, movie20};
+        doReturn(movies).when(repo).findAll();
 
-        MovieManager[] actual = movies.findLast();
-        MovieManager[] expected = {movie20, movie19, movie18, movie17, movie16};
-
+        Poster[] actual = manager.findLast();
+        Poster[] expected = {movie20, movie19, movie18, movie17, movie16};
         assertArrayEquals(expected, actual);
     }
 
     @Test
     public void shouldFindLastMoviesWithLimitAboveDefault() {
-        MovieManager movies = new MovieManager(13);
-        movies.add(movie1);
-        movies.add(movie2);
-        movies.add(movie3);
-        movies.add(movie4);
-        movies.add(movie5);
-        movies.add(movie6);
-        movies.add(movie7);
-        movies.add(movie8);
-        movies.add(movie9);
-        movies.add(movie10);
-        movies.add(movie11);
-        movies.add(movie12);
-        movies.add(movie13);
-        movies.add(movie14);
-        movies.add(movie15);
-        movies.add(movie16);
-        movies.add(movie17);
-        movies.add(movie18);
-        movies.add(movie19);
-        movies.add(movie20);
+//        prepare();
+        MovieManager manager = new MovieManager(repo, 13);
 
-        MovieManager[] actual = movies.findLast();
-        MovieManager[] expected = {movie20, movie19, movie18, movie17, movie16, movie15, movie14, movie13, movie12, movie11, movie10, movie9, movie8};
+        Poster[] movies = {movie1, movie2, movie3, movie4, movie5, movie6, movie7, movie8, movie9, movie10, movie11, movie12, movie13, movie14, movie15, movie16, movie17, movie18, movie19, movie20};
+        doReturn(movies).when(repo).findAll();
 
+        Poster[] actual = manager.findLast();
+        Poster[] expected = {movie20, movie19, movie18, movie17, movie16, movie15, movie14, movie13, movie12, movie11, movie10, movie9, movie8};
         assertArrayEquals(expected, actual);
     }
 
     @Test
     public void shouldFindLastMoviesWithLimitEqualsNull() {
-        MovieManager movies = new MovieManager(0);
-        movies.add(movie1);
-        movies.add(movie2);
-        movies.add(movie3);
-        movies.add(movie4);
-        movies.add(movie5);
-        movies.add(movie6);
-        movies.add(movie7);
-        movies.add(movie8);
-        movies.add(movie9);
-        movies.add(movie10);
-        movies.add(movie11);
-        movies.add(movie12);
-        movies.add(movie13);
-        movies.add(movie14);
-        movies.add(movie15);
-        movies.add(movie16);
-        movies.add(movie17);
-        movies.add(movie18);
-        movies.add(movie19);
-        movies.add(movie20);
+        //        prepare();
+        MovieManager manager = new MovieManager(repo, 0);
 
-        MovieManager[] actual = movies.findLast();
-        MovieManager[] expected = new MovieManager[0];
+        Poster[] movies = {movie1, movie2, movie3, movie4, movie5, movie6, movie7, movie8, movie9, movie10, movie11, movie12, movie13, movie14, movie15, movie16, movie17, movie18, movie19, movie20};
+        doReturn(movies).when(repo).findAll();
 
+        Poster[] actual = manager.findLast();
+        Poster[] expected = new Poster[0];
         assertArrayEquals(expected, actual);
     }
 }
