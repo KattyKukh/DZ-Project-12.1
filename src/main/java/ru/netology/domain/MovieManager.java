@@ -24,7 +24,7 @@ public class MovieManager {
 
     public Poster[] findLast() {
         Poster[] all = repo.findAll();
-        if (limit >= 0) {
+        if (limit > 0) {
             int limitResult;
             limitResult = Math.min(limit, all.length);
             Poster[] reversed = new Poster[limitResult];

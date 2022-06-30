@@ -60,8 +60,14 @@ public class MovieManagerTest {
 
     @Test
     public void shouldAddMovie() {
-        Poster[] movies = {movie1, movie2, movie3, movie14};
-        doReturn(movies).when(repo).findAll();
+//        Poster[] movies = {movie1, movie2, movie3, movie14};
+//        doReturn(movies).when(repo).findAll();
+        Repository repo = new Repository();
+        MovieManager manager = new MovieManager(repo);
+        manager.add(movie1);
+        manager.add(movie2);
+        manager.add(movie3);
+        manager.add(movie14);
 
         Poster[] expected = {movie1, movie2, movie3, movie14};
         Poster[] actual = manager.findAll();
@@ -118,6 +124,18 @@ public class MovieManagerTest {
     public void shouldFindLastMoviesWithLimitEqualsNull() {
         //        prepare();
         MovieManager manager = new MovieManager(repo, 0);
+
+        Poster[] movies = {movie1, movie2, movie3, movie4, movie5, movie6, movie7, movie8, movie9, movie10, movie11, movie12, movie13, movie14, movie15, movie16, movie17, movie18, movie19, movie20};
+        doReturn(movies).when(repo).findAll();
+
+        Poster[] actual = manager.findLast();
+        Poster[] expected = new Poster[0];
+        assertArrayEquals(expected, actual);
+    }
+    @Test
+    public void shouldFindLastMoviesWithLimitIsNegative() {
+        //        prepare();
+        MovieManager manager = new MovieManager(repo, -1);
 
         Poster[] movies = {movie1, movie2, movie3, movie4, movie5, movie6, movie7, movie8, movie9, movie10, movie11, movie12, movie13, movie14, movie15, movie16, movie17, movie18, movie19, movie20};
         doReturn(movies).when(repo).findAll();
