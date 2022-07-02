@@ -3,7 +3,7 @@ package ru.netology.domain;
 import ru.netology.repository.Repository;
 
 public class MovieManager {
-    private Repository repo;
+    private final Repository repo;
     private int limit = 10;
 
     public MovieManager(Repository repo) {
