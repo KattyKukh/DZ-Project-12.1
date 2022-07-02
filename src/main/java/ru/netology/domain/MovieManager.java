@@ -13,9 +13,9 @@ public class MovieManager {
         this.genre = genre;
     }
 
-    public MovieManager(int limit) {
+    public MovieManager(MovieManager[] movies, int limit) {
         this.limit = limit;
-        this.movies=movies;
+        this.movies = movies;
     }
 
     public MovieManager() {
@@ -36,7 +36,7 @@ public class MovieManager {
     }
 
     public MovieManager[] findLast() {
-        if (limit >= 0) {
+        if (limit > 0) {
             int limitResult = Math.min(movies.length, limit);
             MovieManager[] reverse = new MovieManager[limitResult];
             for (int i = 0; i < limitResult; i++) {

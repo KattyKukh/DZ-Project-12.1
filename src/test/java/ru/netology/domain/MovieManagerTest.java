@@ -1,11 +1,11 @@
 package ru.netology.domain;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MovieManagerTest {
     MovieManager manager = new MovieManager();
-
     MovieManager movie1 = new MovieManager(31, "First", "Action");
     MovieManager movie2 = new MovieManager(32, "Second", "Adventure");
     MovieManager movie3 = new MovieManager(33, "Third", "Drama");
@@ -35,7 +35,7 @@ public class MovieManagerTest {
         manager.add(movie3);
         manager.add(movie20);
         MovieManager[] expected = {movie1, movie2, movie3, movie20};
-        MovieManager[] actual = manager.findAll();
+        MovieManager[] actual = manager.getMovies();
         assertArrayEquals(expected, actual);
     }
 
@@ -80,27 +80,10 @@ public class MovieManagerTest {
 
     @Test
     public void shouldFindLastMoviesWithLimitUnderDefault() {
-        MovieManager manager = new MovieManager(5);
-        manager.add(movie1);
-        manager.add(movie2);
-        manager.add(movie3);
-        manager.add(movie4);
-        manager.add(movie5);
-        manager.add(movie6);
-        manager.add(movie7);
-        manager.add(movie8);
-        manager.add(movie9);
-        manager.add(movie10);
-        manager.add(movie11);
-        manager.add(movie12);
-        manager.add(movie13);
-        manager.add(movie14);
-        manager.add(movie15);
-        manager.add(movie16);
-        manager.add(movie17);
-        manager.add(movie18);
-        manager.add(movie19);
-        manager.add(movie20);
+        prepare();
+        MovieManager[] films = manager.getMovies();
+        MovieManager manager = new MovieManager(films, 5);
+
         MovieManager[] actual = manager.findLast();
         MovieManager[] expected = {movie20, movie19, movie18, movie17, movie16};
         assertArrayEquals(expected, actual);
@@ -108,27 +91,9 @@ public class MovieManagerTest {
 
     @Test
     public void shouldFindLastMoviesWithLimitAboveDefault() {
-        MovieManager manager = new MovieManager(13);
-        manager.add(movie1);
-        manager.add(movie2);
-        manager.add(movie3);
-        manager.add(movie4);
-        manager.add(movie5);
-        manager.add(movie6);
-        manager.add(movie7);
-        manager.add(movie8);
-        manager.add(movie9);
-        manager.add(movie10);
-        manager.add(movie11);
-        manager.add(movie12);
-        manager.add(movie13);
-        manager.add(movie14);
-        manager.add(movie15);
-        manager.add(movie16);
-        manager.add(movie17);
-        manager.add(movie18);
-        manager.add(movie19);
-        manager.add(movie20);
+        prepare();
+        MovieManager[] films = manager.getMovies();
+        MovieManager manager = new MovieManager(films, 13);
 
         MovieManager[] actual = manager.findLast();
         MovieManager[] expected = {movie20, movie19, movie18, movie17, movie16, movie15, movie14, movie13, movie12, movie11, movie10, movie9, movie8};
@@ -137,27 +102,9 @@ public class MovieManagerTest {
 
     @Test
     public void shouldFindLastMoviesWithLimitEqualsNull() {
-        MovieManager manager = new MovieManager(0);
-        manager.add(movie1);
-        manager.add(movie2);
-        manager.add(movie3);
-        manager.add(movie4);
-        manager.add(movie5);
-        manager.add(movie6);
-        manager.add(movie7);
-        manager.add(movie8);
-        manager.add(movie9);
-        manager.add(movie10);
-        manager.add(movie11);
-        manager.add(movie12);
-        manager.add(movie13);
-        manager.add(movie14);
-        manager.add(movie15);
-        manager.add(movie16);
-        manager.add(movie17);
-        manager.add(movie18);
-        manager.add(movie19);
-        manager.add(movie20);
+        prepare();
+        MovieManager[] films = manager.getMovies();
+        MovieManager manager = new MovieManager(films, 0);
 
         MovieManager[] actual = manager.findLast();
         MovieManager[] expected = new MovieManager[0];
@@ -166,13 +113,13 @@ public class MovieManagerTest {
 
     @Test
     public void shouldFindLastMoviesIfLimitMoreMovies() {
-        MovieManager manager = new MovieManager(7);
-        manager.add(movie1);
-        manager.add(movie2);
-        manager.add(movie3);
+        prepare();
+        MovieManager[] films = manager.getMovies();
+        MovieManager manager = new MovieManager(films, 30);
 
         MovieManager[] actual = manager.findLast();
-        MovieManager[] expected = {movie3, movie2, movie1};
+        MovieManager[] expected = {movie20, movie19, movie18, movie17, movie16, movie15, movie14, movie13, movie12, movie11, movie10,
+                movie9, movie8, movie7, movie6, movie5, movie4, movie3, movie2, movie1};
         assertArrayEquals(expected, actual);
     }
 
