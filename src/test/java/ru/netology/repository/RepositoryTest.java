@@ -1,8 +1,9 @@
 package ru.netology.repository;
 
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.Poster;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 
 public class RepositoryTest {

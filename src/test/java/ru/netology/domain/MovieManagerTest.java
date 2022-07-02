@@ -1,16 +1,15 @@
 package ru.netology.domain;
 
-import static org.mockito.Mockito.*;
-
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import ru.netology.repository.Repository;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.mockito.Mockito.doReturn;
 
 public class MovieManagerTest {
 
-//    Repository repo = new Repository();   <- для тестирования без Mockito
+    //    Repository repo = new Repository();   <- для тестирования без Mockito
     Repository repo = Mockito.mock(Repository.class);
     MovieManager manager = new MovieManager(repo);
 
@@ -132,6 +131,7 @@ public class MovieManagerTest {
         Poster[] expected = new Poster[0];
         assertArrayEquals(expected, actual);
     }
+
     @Test
     public void shouldFindLastMoviesWithLimitIsNegative() {
         //        prepare();
